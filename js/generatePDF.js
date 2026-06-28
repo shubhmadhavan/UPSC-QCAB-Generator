@@ -39,7 +39,7 @@ function generateQCABPDF(questions) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'mm', format: 'a4' });
     const pageHeight = 297, pageWidth = 210;
-    const leftMargin = 18, rightMargin = 185, topMargin = 15, bottomMargin = 282;
+    const leftMargin = 15, rightMargin = 188, topMargin = 15, bottomMargin = 282;
 
     doc.setFont("Times", "Roman");
     doc.setFontSize(12);
@@ -65,7 +65,7 @@ function generateQCABPDF(questions) {
         }
 
         // Draw question number and text
-        doc.text(qHeader, leftMargin - 10, currentY);
+        doc.text(qHeader, leftMargin + 10, currentY);
         doc.text(splitText, leftMargin + 2, currentY);
 
         // Update Y position
@@ -88,12 +88,12 @@ function generateQCABPDF(questions) {
             // Footer
             const footerText = `XXXX-${q.question_id}`;
             doc.setFontSize(8);
-            doc.text(footerText, leftMargin - 10, bottomMargin + 3);
+            doc.text(footerText, leftMargin - 14, bottomMargin + 3);
 
             if (p === 0) {
                 // Left Question Number
                 doc.setFontSize(12);
-                doc.text(`Q. ${q.question_number}`, leftMargin - 15, topMargin + 5);
+                doc.text(`Q. ${q.question_number}`, leftMargin - 10, topMargin + 5);
 
                 // Question Text
                 const localWidth = rightMargin - leftMargin - 4;
@@ -109,7 +109,7 @@ const rightText = q.year
     ? `${q.marks} M / ${q.year}`
     : `${q.marks} M`;
 
-doc.text(rightText, rightMargin + 2, currentY);
+doc.text(rightText, rightMargin + 1, currentY);
             } else {
                 // Right Margin Text (only for continuation pages)
                 const localWidth = 23;
@@ -118,7 +118,7 @@ doc.text(rightText, rightMargin + 2, currentY);
                     localWidth
                 );
                 let currentY = topMargin + 5;
-                doc.text(splitText, rightMargin + 2, currentY);
+                doc.text(splitText, rightMargin + 1, currentY);
             }
         }
     });
